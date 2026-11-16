@@ -1,0 +1,19 @@
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu \
+ && sed 's/^opencv-python$/opencv-python-headless/' requirements.txt > /tmp/requirements.txt \
+ && pip install -r /tmp/requirements.txt
+
+COPY models ./models
+COPY auswertung ./auswertung
+
+EXPOSE 8787
+CMD ["python", "-m", "auswertung", "--host", "0.0.0.0", "--port", "8787"]

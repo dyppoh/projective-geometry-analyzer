@@ -1,0 +1,16 @@
+# Stufe 1 (Szenen) - reicht für preview/scenes und die Tests
+numpy
+opencv-python
+
+# Stufe 2 (ControlNet) - torch vorher passend installieren, z.B. CUDA:
+#   pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121
+# neuere diffusers/transformers brauchen torch >= 2.6 (torch.accelerator) - mit torch 2.5.1 getestet:
+diffusers==0.32.2
+transformers==4.48.3
+accelerate==1.3.0
+safetensors
+pillow
+
+# Stufe 3 (Linienerkennung) - Gewichte in models/detection/, siehe models/README.md
+onnxruntime          # mlsd
+# deeplsd: Paket deeplsd (cvg/DeepLSD) inkl. pytlsd, kornia, omegaconf

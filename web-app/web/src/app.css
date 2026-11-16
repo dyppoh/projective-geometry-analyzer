@@ -1,0 +1,187 @@
+:root {
+	--paper: #f2f1ec;
+	--panel: #fbfaf7;
+	--ink: #14171c;
+	--muted: #6b6e73;
+	--hair: #cfcdc4;
+	--grid: rgba(20, 23, 28, 0.045);
+	--stage: #1a1d22;
+	--accent: #0169AE;
+	--ok: #10cd3c;
+	--bad: #CD1034;
+	--warn: #cda410;
+
+	--sans: Helvetica, 'Bahnschrift', 'DIN Alternate', 'Barlow', 'Segoe UI', system-ui, sans-serif;
+	--mono: 'Cascadia Mono', 'JetBrains Mono', Consolas, ui-monospace, monospace;
+	--cut: 10px;
+
+	color-scheme: light;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	height: 100%;
+}
+
+body {
+	font-family: var(--sans);
+	font-size: 15px;
+	color: var(--ink);
+	background-color: var(--paper);
+	background-image:
+		linear-gradient(var(--grid) 1px, transparent 1px),
+		linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+	background-size: 32px 32px;
+}
+
+h1,
+h2,
+h3 {
+	margin: 0;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+}
+
+/* kleine Überschrift: 01 — TITEL */
+.label {
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	margin: 0 0 0.75rem;
+	font: 500 11px/1 var(--mono);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.label::after {
+	content: '';
+	flex: 1;
+	height: 1px;
+	background: var(--hair);
+}
+.label b {
+	color: var(--accent);
+	font-weight: 600;
+}
+
+.mono {
+	font-family: var(--mono);
+}
+
+/* Fläche mit Eckmarken */
+.panel {
+	position: relative;
+	background: var(--panel);
+	border: 1px solid var(--hair);
+}
+.panel::before,
+.panel::after {
+	content: '';
+	position: absolute;
+	width: 7px;
+	height: 7px;
+	background: var(--ink);
+}
+.panel::before {
+	top: -1px;
+	left: -1px;
+}
+.panel::after {
+	right: -1px;
+	bottom: -1px;
+}
+
+button {
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+button:disabled {
+	cursor: default;
+	opacity: 0.4;
+}
+
+/* Hauptaktion: abgeschrägte Ecken */
+.btn {
+	padding: 0.7em 1.4em;
+	border: 0;
+	background: var(--ink);
+	color: var(--paper);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	font-size: 13px;
+	clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+	transition: background 0.15s;
+}
+.btn:not(:disabled):hover {
+	background: var(--accent);
+}
+
+/* Nebenaktion: eckig mit Rahmen */
+.ghost {
+	padding: 0.45em 0.9em;
+	border: 1px solid var(--ink);
+	background: transparent;
+	font-size: 13px;
+	letter-spacing: 0.04em;
+}
+.ghost:not(:disabled):hover {
+	background: var(--ink);
+	color: var(--paper);
+}
+
+/* Umschalter aus mehreren eckigen Feldern */
+.segments {
+	display: flex;
+	border: 1px solid var(--ink);
+}
+.segments button {
+	flex: 1;
+	padding: 0.5em 0.6em;
+	border: 0;
+	border-left: 1px solid var(--ink);
+	background: transparent;
+	font-size: 13px;
+}
+.segments button:first-child {
+	border-left: 0;
+}
+.segments button.on {
+	background: var(--ink);
+	color: var(--paper);
+}
+
+input[type='text'] {
+	font: inherit;
+	border: 0;
+	border-bottom: 1px solid var(--ink);
+	background: transparent;
+	padding: 0.1em 0;
+	outline: none;
+	min-width: 0;
+}
+
+input[type='checkbox'] {
+	appearance: none;
+	width: 13px;
+	height: 13px;
+	margin: 0;
+	border: 1px solid var(--ink);
+	vertical-align: -2px;
+	cursor: pointer;
+}
+input[type='checkbox']:checked {
+	background: var(--ink);
+	box-shadow: inset 0 0 0 2px var(--panel);
+}
+
+::selection {
+	background: var(--accent);
+	color: white;
+}

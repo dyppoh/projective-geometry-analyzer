@@ -1,0 +1,30 @@
+services:
+  auswertung:
+    build: ./python
+    restart: unless-stopped
+    expose:
+      - "8787"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8787/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+
+  web:
+    build:
+      context: ./web
+      args:
+        BASE_PATH: ${BASE_PATH:-}
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    environment:
+      PYTHON_API_URL: http://auswertung:8787
+      BODY_SIZE_LIMIT: 50M
+      PUBLIC_URL: ${PUBLIC_URL:-}
+    depends_on:
+      auswertung:
+        condition: service_healthy
+
+
